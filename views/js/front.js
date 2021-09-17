@@ -27,11 +27,13 @@
 */
 
 $( document ).ready(function() {
-    $( "#quantity_wanted" ).change(function() {
+    $( "#quantity_wanted" ).val(panc_mpnumber);
+
+    $("#quantity_wanted").change(function() {
         if ($(this).val() > 0) {
-            $(this).val(Math.ceil($(this).val() / panc_mpnumber) * panc_mpnumber)
+            $(this).val(Math.ceil($(this).val()/panc_mpnumber)*panc_mpnumber)
         } else if ($(this).val() < 0) {
-            $(this).val(Math.floor($(this).val() / panc_mpnumber) * panc_mpnumber)
+            $(this).val(Math.floor($(this).val()/panc_mpnumber)*panc_mpnumber)
         } else {
             $(this).val(panc_mpnumber)
         }
@@ -48,16 +50,6 @@ $( document ).ready(function() {
     // Product page multiply quantity
 	// var panc_mpnumber = {$product->multiplication}; <-- Called in file product-add-to-cart.tpl
 	var pc_quantinput = parseInt($("#quantity_wanted").val());
-
-    $("#quantity_wanted").change(function() {            
-	  	if($(this).val() > 0){
-			$(this).val(Math.ceil($(this).val()/panc_mpnumber) * panc_mpnumber);
-		} else if( $(this).val() < 0) {
-			$(this).val(Math.floor($(this).val()/panc_mpnumber) * panc_mpnumber);
-		} else {
-			$(this).val(panc_mpnumber);
-		}
-	});
 
 	$(".bootstrap-touchspin-down").click(function() {
 		if($("#quantity_wanted").val() != panc_mpnumber){
