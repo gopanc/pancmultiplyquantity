@@ -89,10 +89,15 @@ class Pancmultiplyquantity extends Module
     }
 
     /*  Add CSS & JavaScript to FO */
-    public function hookHeader()
-    {
-        $this->context->controller->addJS($this->_path.'/views/js/front.js');
-        $this->context->controller->addCSS($this->_path.'/views/css/front.css');
+    public function hookHeader($params)
+    {   
+        $product = new Product(Tools::getValue('id_product'));
+        $this->smarty->assign('panc_mpnumber', $product->panc_mpnumber);
+        
+        if ($product->panc_mpnumber > 0) {
+            $this->context->controller->addJS($this->_path.'/views/js/front.js');
+            $this->context->controller->addCSS($this->_path.'/views/css/front.css');
+        }
     }
 
     /* Backoffice field */
@@ -110,6 +115,8 @@ class Pancmultiplyquantity extends Module
         $product = new Product(Tools::getValue('id_product'));
         $this->smarty->assign('panc_mpnumber', $product->panc_mpnumber);
         
-        return $this->display(__FILE__, 'views/templates/front/hooks/displayfooterproduct.tpl');
+        if ($product->panc_mpnumber > 0) {
+            return $this->display(__FILE__, 'views/templates/front/hooks/displayfooterproduct.tpl');
+        }
     }
 }
